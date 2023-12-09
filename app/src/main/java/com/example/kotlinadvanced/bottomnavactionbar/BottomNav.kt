@@ -6,6 +6,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.content.Intent
 import android.view.Menu
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.example.kotlinadvanced.R
 import com.example.kotlinadvanced.databinding.ActivityBottomNavBinding
 import com.example.kotlinadvanced.navfragments.AlarmFragment
@@ -13,6 +14,9 @@ import com.example.kotlinadvanced.navfragments.MiddleButtonActivity
 import com.example.kotlinadvanced.navfragments.RecycleViewFragment
 import com.example.kotlinadvanced.navfragments.ViewModelFragment
 import com.example.kotlinadvanced.navfragments.fragment4
+import com.example.kotlinadvanced.tablayoutadapter.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class BottomNav : AppCompatActivity() {
 
@@ -28,6 +32,26 @@ class BottomNav : AppCompatActivity() {
         supportActionBar?.title = ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        val viewPager: ViewPager2 = findViewById(R.id.viewPager)
+        val tabLayout: TabLayout = findViewById(R.id.tabLayout)
+
+        val adapter = ViewPagerAdapter(this)
+        viewPager.adapter = adapter
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = "Tab ${position + 1}"
+        }.attach()
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+        })
 
         bottomNavigationView.background = null
 
